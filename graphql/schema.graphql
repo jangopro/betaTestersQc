@@ -1,0 +1,36 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    projects: [Project!]! @hasMany
+}
+
+type Project {
+    id: ID!
+    title: String!
+    description: String!
+    creator: User! @belongsTo(relation: "user")
+}
+
+type Query {
+    user(id: ID! @eq): User @find
+    users: [User!]! @paginate
+    project(id: ID! @eq): Project @find
+    projects: [Project!]! @paginate
+    me: User @auth(guard: "api")
+}
+#TODO: Validation Password
+type Mutation {
+    createUser(
+        name: String!
+        email: String! @rules(apply: ["email", "unique:users"])
+        password: String! @bcrypt @rules(apply: ["min:6"])
+    ): User @create
+
+    login(email: String!, password: String!): String
+        @field(resolver: "AuthMutator@resolve")
+
+    createProject(title: String!, description: String!): Project
+        @field(resolver: "ProjectMutator@create")
+        @middleware(checks: ["auth:api"])
+}
