@@ -22,6 +22,7 @@ class ProjectsTableSeeder extends Seeder
                     'user_id' => $user->id,
                     'title'   => $faker->sentence,
                     'description' => $faker->paragraphs(3, true),
+                    'url' => $faker->url(3, true),
                 ]);
             }
         });

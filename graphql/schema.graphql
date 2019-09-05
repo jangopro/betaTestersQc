@@ -9,6 +9,7 @@ type Project {
     id: ID!
     title: String!
     description: String!
+    url: String!
     creator: User! @belongsTo(relation: "user")
 }
 
@@ -30,7 +31,7 @@ type Mutation {
     login(email: String!, password: String!): String
         @field(resolver: "AuthMutator@resolve")
 
-    createProject(title: String!, description: String!): Project
+    createProject(title: String!, description: String!, url: String!): Project
         @field(resolver: "ProjectMutator@create")
         @middleware(checks: ["auth:api"])
 }
