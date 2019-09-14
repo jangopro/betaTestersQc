@@ -8,8 +8,10 @@ type User {
 type Project {
     id: ID!
     title: String!
+    excerpt: String!
     description: String!
     url: String!
+    image: String!
     creator: User! @belongsTo(relation: "user")
 }
 

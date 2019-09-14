@@ -18,7 +18,9 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
+            $table->text('excerpt');
             $table->text('url');
+            $table->text('image');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

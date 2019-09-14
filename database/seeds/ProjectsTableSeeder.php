@@ -17,14 +17,14 @@ class ProjectsTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         \App\User::all()->each(function ($user) use ($faker) {
-            foreach (range(1, 5) as $i) {
-                \App\Project::create([
-                    'user_id' => $user->id,
-                    'title'   => $faker->sentence,
-                    'description' => $faker->paragraphs(3, true),
-                    'url' => $faker->url(3, true),
-                ]);
-            }
+            \App\Project::create([
+                'user_id' => $user->id,
+                'title'   => $faker->domainWord,
+                'excerpt' => $faker->catchPhrase,
+                'description' => $faker->paragraphs(1, true),
+                'url' => $faker->url(3, true),
+                'image' => $faker->imageUrl($width = 640, $height = 640, 'technics')
+            ]);
         });
     }
 }
